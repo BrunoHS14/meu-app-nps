@@ -58,7 +58,7 @@ export default function Home() {
         <div className="mt-24 w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-gray-200/60 overflow-hidden transform hover:-translate-y-2 transition-transform duration-500">
           <div className="bg-gray-50 px-6 py-4 flex items-center gap-4 border-b border-gray-100 text-left">
             <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 font-bold border border-gray-200 shadow-sm">
-              DL
+              ECOA
             </div>
             <div>
               <p className="text-sm font-bold text-gray-900">ECOA APP</p>
