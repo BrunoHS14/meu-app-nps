@@ -1,9 +1,8 @@
-export const dynamic = "force-dynamic";
 import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'ECOA | A voz do seu cliente',
+  title: 'NPS Pro — Pesquisa de satisfação por e-mail',
   description: 'Envie pesquisas NPS, colete respostas e acompanhe a satisfação dos seus clientes.',
 }
 

@@ -2,8 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createServiceSupabase } from '@/lib/supabase-server'
 
 export async function POST(req: NextRequest) {
-  const { token, score } = await req.json()
-  if (!token || score === undefined) return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
+  const body = await req.json()
+  const { token, score, open_answer } = body
+  if (!token) return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
 
   const supabase = createServiceSupabase()
 
@@ -13,8 +14,11 @@ export async function POST(req: NextRequest) {
   if (!send) return NextResponse.json({ error: 'Token não encontrado' }, { status: 404 })
   if (send.score !== null) return NextResponse.json({ message: 'Já respondido' })
 
+  const { open_answer } = await req.json().catch(() => ({}))
+
   await supabase.from('survey_sends').update({
-    score,
+    score: score ?? null,
+    open_answer: open_answer ?? null,
     responded_at: new Date().toISOString(),
   }).eq('token', token)
 
