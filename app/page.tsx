@@ -2,135 +2,161 @@ import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gray-50 font-sans selection:bg-ecoa-purple selection:text-white">
+    <div className="min-h-screen bg-[#FAFAFA] font-sans selection:bg-ecoa-purple selection:text-white text-gray-900">
       
-      {/* Menu Superior (Navbar) */}
-      <nav className="flex items-center justify-between p-6 max-w-7xl mx-auto">
-        <div className="text-3xl font-extrabold tracking-tighter text-ecoa-dark flex items-center gap-1">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-ecoa-blue to-ecoa-violet flex items-center justify-center text-white text-sm font-black shadow-md">
-            E
+      {/* 1. HEADER / NAVBAR BEM PROFISSIONAL */}
+      <header className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b border-gray-100 z-50">
+        <nav className="flex items-center justify-between h-20 px-6 max-w-7xl mx-auto">
+          {/* Logo */}
+          <div className="text-3xl font-extrabold tracking-tighter text-ecoa-dark flex items-center gap-2">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-ecoa-blue to-ecoa-violet flex items-center justify-center text-white text-base font-black shadow-lg shadow-ecoa-blue/20">
+              E
+            </div>
+            ECOA<span className="text-ecoa-blue">.</span>
           </div>
-          ECOA<span className="text-ecoa-blue">.</span>
-        </div>
-        <div>
-          <Link href="/login" className="px-6 py-2.5 text-sm font-semibold text-white bg-ecoa-dark hover:bg-ecoa-purple transition-all duration-300 rounded-full shadow-md">
-            Acessar Sistema
-          </Link>
-        </div>
-      </nav>
+          
+          {/* Botões de Acesso (Entrar e Criar Conta) */}
+          <div className="flex items-center gap-6">
+            <Link href="/login" className="text-sm font-semibold text-gray-600 hover:text-ecoa-dark transition-colors hidden sm:block">
+              Entrar
+            </Link>
+            <Link href="/login" className="px-6 py-2.5 text-sm font-semibold text-white bg-ecoa-dark hover:bg-gray-800 transition-all duration-300 rounded-full shadow-md hover:shadow-lg">
+              Criar conta grátis
+            </Link>
+          </div>
+        </nav>
+      </header>
 
-      {/* Hero Section */}
-      <main className="flex flex-col items-center justify-center text-center px-4 pt-20 pb-16 max-w-5xl mx-auto">
-        
-        <div className="inline-flex items-center px-4 py-1.5 mb-8 rounded-full bg-ecoa-purple/10 text-ecoa-purple text-sm font-bold tracking-wide uppercase">
-          🚀 O novo padrão em pesquisas B2B
+      {/* 2. HERO SECTION (A Promessa Principal) */}
+      <main className="flex flex-col items-center justify-center text-center px-4 pt-36 pb-20 max-w-5xl mx-auto">
+        <div className="inline-flex items-center px-4 py-1.5 mb-8 rounded-full bg-ecoa-blue/10 text-ecoa-blue text-sm font-bold tracking-wide border border-ecoa-blue/20">
+          ✨ Pesquisas de satisfação que os clientes amam responder
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-extrabold text-ecoa-dark tracking-tight mb-8 leading-tight">
-          A voz do seu cliente que <br className="hidden md:block" />
-          <span className="bg-gradient-to-r from-ecoa-blue to-ecoa-violet text-transparent bg-clip-text">
-            reverbera em resultados.
+        <h1 className="text-5xl md:text-7xl font-extrabold text-ecoa-dark tracking-tight mb-8 leading-[1.1]">
+          Meça a lealdade do seu cliente <br className="hidden md:block" />
+          <span className="bg-gradient-to-r from-ecoa-blue to-ecoa-purple text-transparent bg-clip-text">
+            antes que ele cancele.
           </span>
         </h1>
         
-        <p className="text-lg md:text-xl text-gray-500 mb-12 max-w-2xl leading-relaxed">
-          Descubra o que seus clientes realmente pensam. Dispare pesquisas automatizadas, 
-          analise o feedback em tempo real e tome decisões baseadas em dados. Tudo em conformidade com a LGPD.
+        <p className="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl leading-relaxed">
+          Dispare pesquisas NPS diretamente no corpo do e-mail. Zero formulários longos, máxima taxa de resposta. Transforme opiniões em lucro para o seu negócio.
         </p>
         
-        {/* Botões de Ação (AGORA O BOTÃO FUNCIONA!) */}
+        {/* Call to Action principal */}
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto z-10">
-          <Link href="/login" className="px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-ecoa-blue to-ecoa-purple hover:opacity-90 transition-opacity rounded-full shadow-lg shadow-ecoa-purple/30 w-full sm:w-auto">
-            Começar a usar agora
+          <Link href="/login" className="px-8 py-4 text-base font-bold text-white bg-gradient-to-r from-ecoa-blue to-ecoa-purple hover:scale-105 transition-transform duration-300 rounded-full shadow-xl shadow-ecoa-purple/20 w-full sm:w-auto">
+            Começar gratuitamente hoje
           </Link>
-          <a href="#como-funciona" className="px-8 py-4 text-base font-bold text-ecoa-dark bg-white border border-gray-200 hover:bg-gray-100 transition-colors rounded-full shadow-sm w-full sm:w-auto flex items-center justify-center gap-2">
-            Entender como funciona ↓
+          <a href="#como-funciona" className="px-8 py-4 text-base font-bold text-ecoa-dark bg-white border-2 border-gray-100 hover:border-gray-200 transition-colors rounded-full shadow-sm w-full sm:w-auto flex items-center justify-center gap-2">
+            Ver como funciona
           </a>
         </div>
         
-        {/* FAKE DASHBOARD (Para dar cara de Software e tirar o "sem sal") */}
-        <div className="mt-20 w-full max-w-4xl bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
-          {/* Barrinha superior da janela (estilo Mac) */}
-          <div className="bg-gray-100 px-4 py-3 flex gap-2 border-b border-gray-200">
-            <div className="w-3 h-3 rounded-full bg-red-400"></div>
-            <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
-            <div className="w-3 h-3 rounded-full bg-green-400"></div>
+        {/* 3. O MOCKUP DO E-MAIL (A prova visual) */}
+        <div className="mt-24 w-full max-w-3xl bg-white rounded-3xl shadow-2xl border border-gray-200/60 overflow-hidden transform hover:-translate-y-2 transition-transform duration-500">
+          <div className="bg-gray-50 px-6 py-4 flex items-center gap-4 border-b border-gray-100 text-left">
+            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-gray-400 font-bold border border-gray-200 shadow-sm">
+              DL
+            </div>
+            <div>
+              <p className="text-sm font-bold text-gray-900">Diretoria DL</p>
+              <p className="text-xs text-gray-500">pesquisas@ecoa.com.br</p>
+            </div>
           </div>
-          {/* Conteúdo fake para preencher o visual */}
-          <div className="p-8 flex flex-col gap-6 bg-gray-50/50">
-            <div className="flex justify-between items-center">
-               <div className="h-8 w-48 bg-gray-200 rounded-lg animate-pulse"></div>
-               <div className="h-8 w-24 bg-ecoa-blue/20 rounded-lg"></div>
+          
+          <div className="p-10 md:p-14 text-center bg-white relative">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-ecoa-blue to-ecoa-purple"></div>
+            <h2 className="text-2xl font-bold text-gray-900 mb-3">Como foi sua última experiência? 💙</h2>
+            <p className="text-gray-500 mb-10 text-lg">
+              Em uma escala de 0 a 10, o quanto você recomendaria nossos serviços para um parceiro de negócios?
+            </p>
+            
+            <div className="flex flex-wrap justify-center gap-2 max-w-xl mx-auto">
+              {[0,1,2,3,4,5,6,7,8,9,10].map((num) => (
+                <div key={num} className={`w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg border font-bold text-sm md:text-base cursor-pointer hover:scale-110 transition-transform shadow-sm
+                  ${num <= 6 ? 'border-gray-200 text-gray-600 bg-gray-50 hover:bg-red-50 hover:text-red-600 hover:border-red-200' : 
+                    num <= 8 ? 'border-amber-200 text-amber-700 bg-amber-50 hover:bg-amber-100' : 
+                    'border-green-200 text-green-700 bg-green-50 hover:bg-green-100'}`}>
+                  {num}
+                </div>
+              ))}
             </div>
-            <div className="flex flex-col md:flex-row gap-4">
-              <div className="h-32 flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col justify-end">
-                 <div className="h-4 w-20 bg-gray-100 rounded mb-2"></div>
-                 <div className="h-8 w-16 bg-green-100 rounded text-green-600 font-bold flex items-center px-2">NPS 85</div>
-              </div>
-              <div className="h-32 flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col justify-end">
-                 <div className="h-4 w-24 bg-gray-100 rounded mb-2"></div>
-                 <div className="h-8 w-20 bg-gray-200 rounded"></div>
-              </div>
-              <div className="h-32 flex-1 bg-white border border-gray-100 rounded-xl shadow-sm p-4 flex flex-col justify-end">
-                 <div className="h-4 w-28 bg-gray-100 rounded mb-2"></div>
-                 <div className="h-8 w-16 bg-gray-200 rounded"></div>
-              </div>
+            <div className="flex justify-between text-xs font-medium text-gray-400 mt-5 max-w-xl mx-auto px-2 uppercase tracking-wider">
+              <span>0 - Improvável</span>
+              <span>10 - Muito Provável</span>
             </div>
-            <div className="h-64 w-full bg-white border border-gray-100 rounded-xl shadow-sm"></div>
           </div>
         </div>
       </main>
 
-      {/* SEÇÃO COMO FUNCIONA (Onde o botão te leva) */}
-      <section id="como-funciona" className="py-24 bg-white border-t border-gray-100">
-        <div className="max-w-5xl mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-ecoa-dark mb-4">Métricas que geram lucro</h2>
-            <p className="text-gray-500 text-lg">Veja como a ECOA transforma opiniões em dados acionáveis em três passos.</p>
+      {/* 4. SEÇÃO DE BENEFÍCIOS REAIS */}
+      <section id="como-funciona" className="py-24 bg-white">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-ecoa-dark mb-6 tracking-tight">Pare de adivinhar. Comece a medir.</h2>
+            <p className="text-gray-500 text-xl max-w-2xl mx-auto">A ferramenta definitiva para times de Sucesso do Cliente que precisam de dados acionáveis e rápidos.</p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-ecoa-blue/10 text-ecoa-blue rounded-xl flex items-center justify-center text-2xl mb-6">
-                📧
+          <div className="grid md:grid-cols-3 gap-10">
+            {/* Card 1 */}
+            <div className="p-8 bg-gray-50 rounded-3xl border border-gray-100">
+              <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 text-ecoa-blue rounded-2xl flex items-center justify-center text-3xl mb-8">
+                🖱️
               </div>
-              <h3 className="text-xl font-bold text-ecoa-dark mb-3">1. Disparo Inteligente</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Importe seus clientes e deixe que a ECOA cuide do resto. Disparos rápidos, com alta taxa de entrega e design otimizado para não cair no spam.
+              <h3 className="text-2xl font-bold text-ecoa-dark mb-4">Um clique. É só isso.</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Esqueça os links que abrem novas abas. Seu cliente vota diretamente dentro do e-mail, multiplicando a sua taxa de resposta em até 4 vezes.
               </p>
             </div>
 
-            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-ecoa-purple/10 text-ecoa-purple rounded-xl flex items-center justify-center text-2xl mb-6">
-                ⚡
+            {/* Card 2 */}
+            <div className="p-8 bg-gray-50 rounded-3xl border border-gray-100">
+              <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 text-ecoa-purple rounded-2xl flex items-center justify-center text-3xl mb-8">
+                📈
               </div>
-              <h3 className="text-xl font-bold text-ecoa-dark mb-3">2. Zero Fricção</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Seu cliente vota direto no corpo do e-mail com um clique. A resposta é capturada instantaneamente no seu banco de dados.
+              <h3 className="text-2xl font-bold text-ecoa-dark mb-4">Dados em tempo real</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                O cliente clicou, o dado está no seu painel. Acompanhe a média do seu NPS e saiba exatamente como a percepção da sua marca está evoluindo.
               </p>
             </div>
 
-            <div className="p-8 bg-gray-50 rounded-2xl border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="w-14 h-14 bg-ecoa-violet/10 text-ecoa-violet rounded-xl flex items-center justify-center text-2xl mb-6">
+            {/* Card 3 */}
+            <div className="p-8 bg-gray-50 rounded-3xl border border-gray-100">
+              <div className="w-16 h-16 bg-white shadow-sm border border-gray-100 text-ecoa-violet rounded-2xl flex items-center justify-center text-3xl mb-8">
                 🛡️
               </div>
-              <h3 className="text-xl font-bold text-ecoa-dark mb-3">3. Conformidade LGPD</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Dormir tranquilo não tem preço. Sistema de "unsubscribe" automático e segurança de dados nativa (Row Level Security).
+              <h3 className="text-2xl font-bold text-ecoa-dark mb-4">Adequado à LGPD</h3>
+              <p className="text-gray-600 leading-relaxed text-lg">
+                Gerenciamento de listas de bloqueio (unsubscribe) automático e segurança de banco de dados nativa. Você foca no cliente, a gente foca na segurança.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Rodapé Clássico */}
-      <footer className="bg-ecoa-dark py-12 text-center">
-        <div className="text-2xl font-extrabold tracking-tighter text-white opacity-90 mb-4">
-          ECOA<span className="text-ecoa-blue">.</span>
+      {/* 5. CALL TO ACTION FINAL */}
+      <section className="py-20 bg-ecoa-dark">
+        <div className="max-w-4xl mx-auto px-6 text-center">
+          <h2 className="text-4xl font-extrabold text-white mb-6">Pronto para ouvir seus clientes?</h2>
+          <p className="text-gray-400 text-xl mb-10">Crie sua conta em 30 segundos e envie sua primeira pesquisa hoje mesmo.</p>
+          <Link href="/login" className="inline-block px-10 py-5 text-lg font-bold text-ecoa-dark bg-white hover:bg-gray-100 transition-colors rounded-full shadow-xl">
+            Criar minha conta agora
+          </Link>
         </div>
-        <p className="text-gray-400 text-sm">
-          © {new Date().getFullYear()} ECOA Software. Todos os direitos reservados.
-        </p>
+      </section>
+
+      {/* 6. FOOTER LIMPÃO */}
+      <footer className="bg-white py-12 border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+          <div className="text-2xl font-extrabold tracking-tighter text-ecoa-dark mb-4 md:mb-0">
+            ECOA<span className="text-ecoa-blue">.</span>
+          </div>
+          <p className="text-gray-400 text-sm font-medium">
+            © {new Date().getFullYear()} ECOA Software B2B. Feito para crescer.
+          </p>
+        </div>
       </footer>
       
     </div>
