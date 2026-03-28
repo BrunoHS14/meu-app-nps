@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Dados inválidos' }, { status: 400 })
     }
 
-    // 1. Usando a conexão padrão que já sabemos que funciona perfeitamente!
+    // 1. Conexão com o banco
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
     const supabase = createClient(supabaseUrl, supabaseKey)
@@ -44,6 +44,20 @@ export async function POST(req: NextRequest) {
     let sent = 0
 
     for (const email of emails) {
+      // === NOVIDADE 1: A TRAVA DA LGPD ===
+      const { data: isUnsubscribed } = await supabase
+        .from('unsubscribes')
+        .select('id')
+        .eq('org_id', orgId)
+        .eq('email', email)
+        .single()
+
+      if (isUnsubscribed) {
+        console.log(`Envio bloqueado LGPD: ${email} pediu para sair da lista.`)
+        continue // Pula este cliente e vai para o próximo da lista!
+      }
+      // =====================================
+
       // Criar registro de envio
       const { data: sendRecord } = await supabase
         .from('survey_sends').insert({
@@ -64,7 +78,6 @@ export async function POST(req: NextRequest) {
 
       // O envio do e-mail
       await resend.emails.send({
-        // Fallback seguro para contas Resend em fase de teste
         from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev', 
         to: email,
         subject: `Como você avalia ${org.name}?`,
@@ -79,28 +92,4 @@ export async function POST(req: NextRequest) {
               </h2>
               <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:0 0 24px;">
                 ${survey.question}
-              </p>
-              <p style="font-size:12px;color:#9ca3af;margin:0 0 12px;">Clique no número abaixo:</p>
-              <div style="margin:0 0 8px;">${scoreButtons}</div>
-              <p style="font-size:11px;color:#9ca3af;margin:16px 0 0;">
-                0 = Muito improvável &nbsp;·&nbsp; 10 = Muito provável
-              </p>
-            </div>
-          </body>
-          </html>
-        `,
-      })
-      sent++
-    }
-
-    // Atualizar contador de envios
-    await supabase.from('organizations').update({
-      emails_sent_this_month: (org.emails_sent_this_month || 0) + sent
-    }).eq('id', orgId)
-
-    return NextResponse.json({ sent })
-  } catch (err: any) {
-    console.error(err)
-    return NextResponse.json({ error: err.message || 'Erro interno' }, { status: 500 })
-  }
-}
+              </p
