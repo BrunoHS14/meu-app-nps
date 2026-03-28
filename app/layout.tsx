@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'NPS Pro — Pesquisa de satisfação por e-mail',
+  title: 'ECOA | A voz do seu cliente',
   description: 'Envie pesquisas NPS, colete respostas e acompanhe a satisfação dos seus clientes.',
 }
 
