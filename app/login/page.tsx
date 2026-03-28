@@ -1,9 +1,10 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { Suspense } from 'react'
+import { useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter()
   const params = useSearchParams()
   const isSignup = params.get('signup') === '1'
@@ -27,8 +28,6 @@ export default function LoginPage() {
     if (mode === 'signup') {
       const { data, error: signUpError } = await supabase.auth.signUp({ email, password })
       if (signUpError) { setError(signUpError.message); setLoading(false); return }
-
-      // Criar organização
       if (data.user) {
         const slug = orgName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
         await supabase.from('organizations').insert({
@@ -60,49 +59,34 @@ export default function LoginPage() {
             <p className="text-sm text-gray-500 mt-1">14 dias grátis · Plano {plan}</p>
           )}
         </div>
-
         <form onSubmit={handleSubmit} className="space-y-4">
           {mode === 'signup' && (
             <div>
               <label className="text-xs text-gray-500 block mb-1">Nome da empresa</label>
-              <input
-                type="text" required value={orgName}
-                onChange={e => setOrgName(e.target.value)}
+              <input type="text" required value={orgName} onChange={e => setOrgName(e.target.value)}
                 placeholder="Minha Empresa"
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-              />
+                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900" />
             </div>
           )}
           <div>
             <label className="text-xs text-gray-500 block mb-1">E-mail</label>
-            <input
-              type="email" required value={email}
-              onChange={e => setEmail(e.target.value)}
+            <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
               placeholder="voce@empresa.com"
-              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-            />
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900" />
           </div>
           <div>
             <label className="text-xs text-gray-500 block mb-1">Senha</label>
-            <input
-              type="password" required value={password}
-              onChange={e => setPassword(e.target.value)}
+            <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
               placeholder="mínimo 6 caracteres"
-              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
-            />
+              className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900" />
           </div>
-
           {error && <p className="text-sm text-red-600 bg-red-50 px-3 py-2 rounded-lg">{error}</p>}
           {success && <p className="text-sm text-green-700 bg-green-50 px-3 py-2 rounded-lg">{success}</p>}
-
-          <button
-            type="submit" disabled={loading}
-            className="w-full bg-gray-900 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 disabled:opacity-50 transition"
-          >
+          <button type="submit" disabled={loading}
+            className="w-full bg-gray-900 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-gray-700 disabled:opacity-50 transition">
             {loading ? 'Aguarde...' : mode === 'login' ? 'Entrar' : 'Criar conta'}
           </button>
         </form>
-
         <p className="text-xs text-center text-gray-400 mt-4">
           {mode === 'login' ? (
             <>Não tem conta? <button onClick={() => setMode('signup')} className="text-gray-700 underline">Criar grátis</button></>
@@ -113,4 +97,8 @@ export default function LoginPage() {
       </div>
     </div>
   )
+}
+
+export default function LoginPage() {
+  return <Suspense><LoginForm /></Suspense>
 }

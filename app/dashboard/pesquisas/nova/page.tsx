@@ -1,4 +1,5 @@
 'use client'
+import { Suspense } from 'react'
 import { useState, useEffect, useCallback } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
@@ -140,7 +141,7 @@ function SurveyPreview({ type, question, color, thankYou, logoUrl, name }: {
 }
 
 // ─── Página principal ─────────────────────────────────────────────────────────
-export default function NovaPesquisaPage() {
+function NovaPesquisaPage() {
   const router = useRouter()
   const params = useSearchParams()
   const editId = params.get('edit')
@@ -379,4 +380,7 @@ export default function NovaPesquisaPage() {
       </div>
     </div>
   )
+}
+export default function NovaPesquisaPageWrapper() {
+  return <Suspense><NovaPesquisaPage /></Suspense>
 }
