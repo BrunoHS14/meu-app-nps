@@ -169,6 +169,7 @@ export default function Dashboard() {
             Fazer upgrade →
           </a>
         )}
+        <a href="/dashboard/pesquisas" className="text-sm text-gray-500 hover:text-gray-900">Pesquisas</a>
         <button onClick={signOut} className={`text-xs text-gray-400 hover:text-gray-600 ${org?.plan !== 'trial' ? 'ml-auto' : ''}`}>
           Sair
         </button>
