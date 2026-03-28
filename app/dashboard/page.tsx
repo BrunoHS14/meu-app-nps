@@ -33,8 +33,16 @@ export default function Dashboard() {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) { router.push('/login'); return }
 
-    const { data: orgData } = await supabase
+    let { data: orgData } = await supabase
       .from('organizations').select('*').eq('owner_id', user.id).single()
+      
+    // Se o usuário não tem empresa, cria uma padrão na hora!
+    if (!orgData) {
+      const { data: newOrg } = await supabase
+        .from('organizations').insert({ owner_id: user.id, name: 'Minha Empresa', plan: 'trial' }).select().single()
+      orgData = newOrg
+    }
+
     if (!orgData) { router.push('/login'); return }
     setOrg(orgData)
 
