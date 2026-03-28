@@ -1,18 +1,23 @@
-// tailwind.config.ts (Exemplo de como ficaria)
-module.exports = {
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
         ecoa: {
-          'blue': '#007BFF', // O azul elétrico (confiança, tech)
-          'purple': '#8E44AD', // O roxo vibrante (inovação, insight)
-          'violet': '#D04AE2', // O violeta brilhante (energia, conversão)
-          'dark': '#1A1A2E', // O fundo escuro (sofisticação, dados)
+          'blue': '#007BFF',   // Azul elétrico
+          'purple': '#8E44AD', // Roxo vibrante
+          'violet': '#D04AE2', // Violeta brilhante
+          'dark': '#1A1A2E',   // Fundo escuro
         }
       },
-      fontFamily: {
-        'sans': ['Poppins', 'sans-serif'], // Uma fonte forte e moderna
-      }
-    }
-  }
-}
+    },
+  },
+  plugins: [],
+};
+export default config;
