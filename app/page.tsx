@@ -61,7 +61,7 @@ export default function Home() {
               DL
             </div>
             <div>
-              <p className="text-sm font-bold text-gray-900">Diretoria DL</p>
+              <p className="text-sm font-bold text-gray-900">ECOA APP</p>
               <p className="text-xs text-gray-500">pesquisas@ecoa.com.br</p>
             </div>
           </div>
