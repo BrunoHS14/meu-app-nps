@@ -92,4 +92,34 @@ export async function POST(req: NextRequest) {
               </h2>
               <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:0 0 24px;">
                 ${survey.question}
-              </p
+              </p>
+              <p style="font-size:12px;color:#9ca3af;margin:0 0 12px;">Clique no número abaixo:</p>
+              <div style="margin:0 0 8px;">${scoreButtons}</div>
+              <p style="font-size:11px;color:#9ca3af;margin:16px 0 0;">
+                0 = Muito improvável &nbsp;·&nbsp; 10 = Muito provável
+              </p>
+              <!-- NOVIDADE 2: O LINK DA LGPD NO RODAPÉ DO E-MAIL -->
+              <div style="margin-top: 32px; padding-top: 16px; border-top: 1px solid #e5e7eb; text-align: center;">
+                <p style="font-size: 11px; color: #9ca3af; margin: 0;">
+                  Para não receber mais pesquisas, <a href="${surveyUrl}?unsubscribe=1" style="color: #6b7280; text-decoration: underline;">clique aqui</a>.
+                </p>
+              </div>
+            </div>
+          </body>
+          </html>
+        `,
+      })
+      sent++
+    }
+
+    // Atualizar contador de envios
+    await supabase.from('organizations').update({
+      emails_sent_this_month: (org.emails_sent_this_month || 0) + sent
+    }).eq('id', orgId)
+
+    return NextResponse.json({ sent })
+  } catch (err: any) {
+    console.error(err)
+    return NextResponse.json({ error: err.message || 'Erro interno' }, { status: 500 })
+  }
+}
