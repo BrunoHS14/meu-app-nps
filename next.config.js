@@ -1,13 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    // Ignora os erros do corretor ortográfico no lançamento
-    ignoreDuringBuilds: true,
-  },
   typescript: {
-    // Ignora os erros de tipagem no lançamento
+    // !! PERIGO: Isso manda a Vercel ignorar os erros vermelhos e publicar o site mesmo assim !!
     ignoreBuildErrors: true,
   },
-};
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+}
 
-module.exports = nextConfig;
+module.exports = nextConfig

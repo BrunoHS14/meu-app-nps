@@ -1,4 +1,4 @@
-import { createServiceSupabase } from '@/lib/supabase-server'
+import { createClient } from '@supabase/supabase-js'
 import { redirect } from 'next/navigation'
 import RespondClient from './RespondClient'
 
@@ -8,8 +8,12 @@ export default async function SurveyPage({
   params: { token: string }
   searchParams: { score?: string; unsubscribe?: string }
 }) {
-  const supabase = createServiceSupabase()
+  // 1. Usando a conexão segura e padrão
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+  const supabase = createClient(supabaseUrl, supabaseKey)
 
+  // 2. Busca a pesquisa no banco
   const { data: send } = await supabase
     .from('survey_sends')
     .select('*, surveys(*), organizations(*)')
@@ -22,7 +26,7 @@ export default async function SurveyPage({
     </div>
   )
 
-  // Auto-submit if score in URL (clicked from email)
+  // 3. Salva a nota no banco (se veio do clique do e-mail)
   if (searchParams.score !== undefined && send.score === null) {
     const score = parseInt(searchParams.score)
     if (score >= 0 && score <= 10) {
@@ -30,11 +34,16 @@ export default async function SurveyPage({
         score,
         responded_at: new Date().toISOString(),
       }).eq('token', params.token)
+      
+      // Joga para a sua tela de Thanks bonitona!
       redirect(`/survey/${params.token}/thanks?score=${score}`)
     }
   }
 
-  if (send.score !== null) redirect(`/survey/${params.token}/thanks?score=${send.score}`)
+  // Se a pessoa clicar no link de novo depois de já ter votado
+  if (send.score !== null) {
+    redirect(`/survey/${params.token}/thanks?score=${send.score}`)
+  }
 
   return (
     <RespondClient
