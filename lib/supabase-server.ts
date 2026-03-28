@@ -9,8 +9,8 @@ export function createServerSupabase() {
     {
       cookies: {
         get(name: string) { return cookieStore.get(name)?.value },
-        set(name, value, options) { cookieStore.set({ name, value, ...options }) },
-        remove(name, options) { cookieStore.set({ name, value: '', ...options }) },
+        set(name: string, value: string, options: any) { cookieStore.set({ name, value, ...options }) },
+        remove(name: string, options: any) { cookieStore.set({ name, value: '', ...options }) },
       },
     }
   )
@@ -24,9 +24,9 @@ export function createServiceSupabase() {
     {
       cookies: {
         get(name: string) { return cookieStore.get(name)?.value },
-        set() {},
-        remove() {},
+        set(_name: string, _value: string, _options: any) {},
+        remove(_name: string, _options: any) {},
       },
     }
   )
-}
+} 
