@@ -9,12 +9,10 @@ export async function POST(req: NextRequest) {
   const supabase = createServiceSupabase()
 
   const { data: send } = await supabase
-    .from('survey_sends').select('id, score').eq('token', token).single()
+    .from('survey_sends').select('id, score, open_answer').eq('token', token).single()
 
   if (!send) return NextResponse.json({ error: 'Token não encontrado' }, { status: 404 })
-  if (send.score !== null) return NextResponse.json({ message: 'Já respondido' })
-
-  const { open_answer } = await req.json().catch(() => ({}))
+  if (send.score !== null || send.open_answer !== null) return NextResponse.json({ message: 'Já respondido' })
 
   await supabase.from('survey_sends').update({
     score: score ?? null,
